@@ -9,7 +9,7 @@ const Footer = () => {
                     <Row>
                         <Col md={12} className="text-center">
                             <span>
-                                Copyright &copy; Shopaholic.com
+                                Copyright &copy; MERN_Logo.com
                             </span>
                         </Col>
                     </Row>
