@@ -10,7 +10,6 @@ function Loader() {
             marginTop: "25vh",
             display: "block",
         }}>
-            <span className="sr-only">Loading...</span>
         </Spinner>
     )
 }

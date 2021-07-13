@@ -1,17 +1,20 @@
 const express = require('express');
 const { Error } = require('mongoose');
 const router = express.Router();
-const {getProduct, getProducts} = require('../controllers/productsController')
-
+const {
+    getProduct, 
+    getProducts,
+    createProductReview,
+    getTopProducts,
+} = require('../controllers/productsController')
+const {protect, admin}  = require('../middlewares/authMiddleware')
 //GET ROUTE FOR ALL PRODUCTS
-router.route('/products').get(getProducts);
+router.route('/').get(getProducts);
 
+router.route('/:id/reviews').post(protect,createProductReview);
 
-//GET PRODUCT FOR SINGLE PRODUCT // another method
-
-router.get(
-    '/products/:id',
-    getProduct
-)
+router.get('/top', getTopProducts)
+//GET PRODUCT FOR SINGLE PRODUCT
+router.route('/:id').get(getProduct);
 
 module.exports = router;

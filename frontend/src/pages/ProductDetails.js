@@ -13,6 +13,7 @@ function ProductDetails({history,match}) {
     const productDetails = useSelector(state=>state.productDetails)
     const {loading, error, product} = productDetails;
     useEffect(()=>{
+        window.scrollTo(0, 0)
         dispatch(listProductDetails(match.params.id))
     },[dispatch,match])
 
@@ -26,58 +27,59 @@ function ProductDetails({history,match}) {
                 <div>
                 <Link to='/' className='btn btn-light my-1'><i className="fas fa-arrow-left"></i>
                 &nbsp;Back</Link>
-                    <h1>Product Details Page</h1>
-                    <Row>
-                        <Col md={6}>
+                    <Row className="justify-content-md-center">
+                        <Col md={5}>
                             <Image src={product.image} alt={product.name} fluid></Image>
                         </Col>
-                        <Col md={3}>
-                            <ListGroup>
-                                <ListGroupItem>
+                        <Col md={5}>
+                            <ListGroup style={{color: "black"}}>
+                                <ListGroupItem style={{border: "none", color:"black"}}>
                                     <h3>{product.name}</h3>
                                 </ListGroupItem>
-                                <ListGroupItem>
+                                <ListGroupItem style={{border:'none', color:"#59756f", fontWeight: 'bold'}}>
+                                ${product.price}
+                                </ListGroupItem>
+                                <ListGroupItem style={{border: "none"}}>
+                                    <Row>
+                                        <Col>Status: </Col>
+                                        <Col>
+                                            {product.countInStock>0? "In Stock" : "Out of stock"}
+                                        </Col>
+                                    </Row>
+                                </ListGroupItem>
+                                {
+                                    product.countInStock>0 && (
+                                        <ListGroupItem style={{border: "none"}}>
+                                            <Row>
+                                                <Col>Quantity</Col>
+                                                <Form.Control as= "select" value={qnt} onChange={(e)=>setQnt(e.target.value)}>
+                                                    {
+                                                        [...Array(product.countInStock).keys()].map((x)=>(
+                                                            <option key={x+1} value={x+1}>
+                                                            {x+1}
+                                                            </option>
+                                                        ))
+                                                    }
+                                                </Form.Control>
+                                            </Row>
+                                        </ListGroupItem>
+                                    )
+                                }
+                                <ListGroupItem style={{border: "none"}}>
+                                    {
+                                        product.countInStock>0?
+                                        <Button className="btn-block" type="button" onClick={handleAddClick} style={{background:"#59756f"}}>Add to Cart</Button>:
+                                        <Button className="btn-block " type="button" disabled>Add to Cart</Button>
+                                    }
+                                </ListGroupItem>
+                                <ListGroupItem style={{border: "none"}}>
                                     <Rating rating={product.rating} total={product.numReviews}></Rating>
                                     <div>Total Reviews: {product.numReviews}</div>
                                 </ListGroupItem>
-                                <ListGroupItem>
-                                    Price :${product.price}
-                                </ListGroupItem>
-                                <ListGroupItem>
+                                <ListGroupItem style={{border: "none"}}>
                                     {product.description}
                                 </ListGroupItem>
                             </ListGroup>
-                        </Col>
-                        <Col md={3}>
-                            <ListGroupItem>
-                                <Row>
-                                    <Col>Status: </Col>
-                                    <Col>
-                                        {product.countInStock>0? "In Stock" : "Out of stock"}
-                                    </Col>
-                                </Row>
-                            </ListGroupItem>
-                            {
-                                product.countInStock>0 && (
-                                    <ListGroupItem>
-                                        <Row>
-                                            <Col>Quantity</Col>
-                                            <Form.Control as= "select" value={qnt} onChange={(e)=>setQnt(e.target.value)}>
-                                                {
-                                                    [...Array(product.countInStock).keys()].map((x)=>(
-                                                        <option key={x+1} value={x+1}>
-                                                        {x+1}
-                                                        </option>
-                                                    ))
-                                                }
-                                            </Form.Control>
-                                        </Row>
-                                    </ListGroupItem>
-                                )
-                            }
-                            <ListGroupItem >
-                                <Button className="btn-block" type="button" onClick={handleAddClick}>Add to Cart</Button>
-                            </ListGroupItem>
                         </Col>
                     </Row>
                 </div>

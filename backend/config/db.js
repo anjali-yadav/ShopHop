@@ -11,7 +11,6 @@ const connectDb = ()=>{
         console.error(`Error: ${err.message}`)
         process.exit(1);
     })
-
 }
 
 module.exports=connectDb;

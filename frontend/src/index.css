@@ -1,3 +1,23 @@
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans'); */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 main {
-  min-height: 80vh;
+	/* font-family: 'Open Sans', sans-serif; */
+	font-family: 'Source Sans Pro', sans-serif;
+	min-height: 80vh;
+}
+.color-nav {
+	height: 5rem;
+	background-color: #cbd5cc;
+	margin-bottom: 4rem;
+}
+.price {
+	color: '#59756F';
+}
+.checkout {
+	color: '#59756F';
+}
+.carousel {
+	width: 900px;
+	height: 500px;
+	margin: auto;
 }

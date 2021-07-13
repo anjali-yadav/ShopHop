@@ -19,6 +19,7 @@ function CartPage({match, location, history}) {
     const qnt=location.search ? Number(location.search.split('=')[1]):1;
     const dispatch = useDispatch()
     useEffect(()=>{
+        window.scrollTo(0, 0)
         if(productId)
         {
           dispatch(addToCart(productId, qnt));
@@ -26,7 +27,6 @@ function CartPage({match, location, history}) {
     },[dispatch,productId,qnt])
     const cart = useSelector(state=>state.cart)
     const {cartItems} = cart;
-    console.log(cartItems);
     function removeFromCartHandler(id) {
         dispatch(removeFromCart(id));
     }
@@ -37,24 +37,23 @@ function CartPage({match, location, history}) {
         <>
       <Row>
         <Col md={8}>
-          <h1>Shopping Cart</h1>
           {cartItems.length === 0 ? (
             <Message>
               Your Cart is Empty !<Link to="/">Go Back</Link>
             </Message>
           ) : (
             <ListGroup variant="flush">
-              {cartItems.map((item) => (
-                <ListGroupItem>
+              {cartItems.map((item, idx) => (
+                <ListGroup.Item key={item.product}>
                   <Row>
                     <Col md={2}>
                       <Image src={item.image} alt={item.name} fluid rounded />
                     </Col>
                     <Col md={3}>
-                      <Link to={`/product/${item.product}`}>{item.name}</Link>
+                      <Link to={`/product/${item.product}`} style={{textDecoration: 'none'}}>{item.name}</Link>
                     </Col>
                     <Col md={2}>${item.price}</Col>
-                    <Col md={2}>
+                    <Col md={2} mx="auto">
                       <Form.Control
                         as="select"
                         value={item.qnt}
@@ -70,7 +69,9 @@ function CartPage({match, location, history}) {
                           </option>
                         ))}
                       </Form.Control>
-                      <Button
+                    </Col>
+                    <Col md={2}>
+                    <Button
                         type="button"
                         variant="light"
                         onClick={() => removeFromCartHandler(item.product)}
@@ -82,7 +83,7 @@ function CartPage({match, location, history}) {
                       </Button>
                     </Col>
                   </Row>
-                </ListGroupItem>
+                </ListGroup.Item>
               ))}
             </ListGroup>
           )}
@@ -92,8 +93,8 @@ function CartPage({match, location, history}) {
             <ListGroup variant="flush">
               <ListGroupItem>
                 <h2>
-                  subtotal ({cartItems.reduce((acc, item) => acc + item.qnt, 0)}
-                  ) items
+                  Subtotal ({cartItems.reduce((acc, item) => acc + item.qnt, 0)}
+                  ) Items
                 </h2>
                 $
                 {cartItems
@@ -105,8 +106,9 @@ function CartPage({match, location, history}) {
                 className="btn-block"
                 disabled={cartItems.length === 0}
                 onClick={checkout}
+                className="bg-dark"
               >
-                Proceed to checkOut
+                Checkout
               </Button>
             </ListGroup>
           </Card>
