@@ -10,7 +10,7 @@ This is an e-commerce website
 <br />
 ## 1. Installation <br />
 Clone this repo by running the following commands <br />
-`git clone https://github.com/anjali-yadav/Style-India.git` <br />
+`git clone https://github.com/anjali-yadav/ShopHop.git` <br />
 `cd Style-India` 
 <br />
 ## 2. Now install all the required packages(frontend & backend) by running the following commands :-
